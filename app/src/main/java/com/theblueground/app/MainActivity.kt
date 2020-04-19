@@ -1,4 +1,4 @@
-package com.theblueground.sherlock
+package com.theblueground.app
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar

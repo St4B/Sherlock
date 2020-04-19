@@ -1,4 +1,4 @@
-package com.theblueground.sherlock
+package com.theblueground.app
 
 import org.junit.Test
 
