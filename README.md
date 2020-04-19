@@ -1,0 +1,2 @@
+# Sherlock
+Screenshot testing library
