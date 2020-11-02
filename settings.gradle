@@ -1,4 +1,5 @@
 rootProject.name='Sherlock'
 include ':app'
 include ':sherlock'
+include ':app-compose'
 include ':sherlock-compose-processor'
