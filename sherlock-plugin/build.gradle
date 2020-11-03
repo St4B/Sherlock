@@ -1,0 +1,30 @@
+plugins {
+    id 'kotlin'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+publishing {
+    publications {
+        pluginPublication (MavenPublication) {
+            from    components.java
+            groupId    project.group
+            artifactId    "sherlockplugin"
+            version    project.version
+        }
+    }
+}
+
+group = "com.quadible.sherlockplugin"
+version = "1.0"
+
+gradlePlugin {
+    plugins {
+        sherlockComposePlugin {
+            id = 'com.quadible.sherlockplugin'
+            implementationClass = 'com.quadible.sherlockplugin.SherlockPlugin'
+        }
+    }
+}
+
+dependencies {}
