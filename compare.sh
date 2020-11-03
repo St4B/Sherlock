@@ -16,6 +16,17 @@
 # Also, we will create a gradle plugin in order to distribute it easily and make it
 # more configurable (e.g change paths and so on)
 
+# We need to ensure that we have two arguments. The first one would be the module's
+# name and the second one would be be the application's id.
+if [ "$#" -ne "2" ]
+  then
+    echo 'You should provide module name and application id'
+    exit 128
+fi
+
+MODULE_NAME=$1
+APPLICATION_ID=$2
+
 echo $'*** Set up environment ***'
 
 # Install ffmpeg based on operating system. We need to optimize this
@@ -30,7 +41,7 @@ case "${uname}" in
 esac
 
 # Add a directory in which we are going to pull the
-pullPath=$(pwd)'/pulled-screenshots'
+pullPath=$(pwd)"/$MODULE_NAME/pulled-screenshots"
 mkdir $pullPath
 
 # Add a directory in which we are going to pull the
@@ -38,7 +49,7 @@ resultsPath=$pullPath'/screenshot-testing-results'
 mkdir $resultsPath
 
 echo $'\n*** Start pulling files from device ***'
-adb shell find "/storage/emulated/0/Android/data/com.theblueground.app/files" -type f | while read file; do adb pull $file $pullPath; done
+adb shell find "/storage/emulated/0/Android/data/$APPLICATION_ID/files" -type f | while read file; do adb pull $file $pullPath; done
 
 echo $'\n*** Start comparing screenshots ***'
 
@@ -69,8 +80,8 @@ generateDiffGraph="-filter_complex ssim=stats_file=-[ssim];[ssim][1]blend=all_mo
 for file in $pullPath'/'*; do
   if [ -f "$file" ]; then
 
-    image1=app/screenshots/${file##*/}
-    image2=pulled-screenshots/${file##*/}
+    image1=$MODULE_NAME/screenshots/${file##*/}
+    image2=$MODULE_NAME/pulled-screenshots/${file##*/}
 
     # Compare the two images
     result=$(ffmpeg -i $image1 -i $image2 $compareGraph)
