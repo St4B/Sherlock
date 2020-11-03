@@ -3,7 +3,6 @@ package com.quadible.sherlockplugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.TaskProvider
 import java.io.ByteArrayOutputStream
 
 open class CheckFFMPEGTask : Exec() {
@@ -25,7 +24,7 @@ open class CheckFFMPEGTask : Exec() {
     }
 }
 
-fun Project.registerCheckFFMPEGTask(): TaskProvider<CheckFFMPEGTask> = tasks.register(
+fun Project.registerCheckFFMPEGTask(): CheckFFMPEGTask = tasks.create(
     CheckFFMPEGTask.TASK_NAME_CHECK_FFMPEG_INSTALLATION,
     CheckFFMPEGTask::class.java
 ) { checkFFMPEGTask ->

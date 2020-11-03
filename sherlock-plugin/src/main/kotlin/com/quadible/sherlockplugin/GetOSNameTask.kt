@@ -3,7 +3,6 @@ package com.quadible.sherlockplugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.TaskProvider
 import java.io.ByteArrayOutputStream
 
 open class GetOSNameTask : Exec() {
@@ -25,7 +24,7 @@ open class GetOSNameTask : Exec() {
     }
 }
 
-fun Project.registerGetOSNameTask(): TaskProvider<GetOSNameTask> = tasks.register(
+fun Project.registerGetOSNameTask(): GetOSNameTask = tasks.create(
     GetOSNameTask.TASK_NAME_GET_OPERATING_SYSTEM,
     GetOSNameTask::class.java
 ) { getOsTask ->

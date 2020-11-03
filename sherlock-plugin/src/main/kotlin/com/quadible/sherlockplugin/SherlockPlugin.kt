@@ -7,8 +7,12 @@ class SherlockPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         val extension = project.createSherlockPluginExtension()
-        project.registerGetOSNameTask()
-        project.registerCheckFFMPEGTask()
+        val getOSNameTask = project.registerGetOSNameTask()
+        val checkFFMPEGTask = project.registerCheckFFMPEGTask()
+        project.registerInstallFFMPEGTask(
+            getOSNameTask = getOSNameTask,
+            checkFFMPEGTask = checkFFMPEGTask
+        )
         project.registerRecordPreviewsTask(extension = extension)
     }
 }
