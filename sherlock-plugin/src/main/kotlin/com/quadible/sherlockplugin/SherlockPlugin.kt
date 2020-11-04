@@ -18,6 +18,11 @@ class SherlockPlugin : Plugin<Project> {
         val compareScreenshotsTask =
             project.registerCompareScreenshotsTask(installFFMPEGTask = installFFMPEGTask)
 
+        project.registerPullAndCompareScreenshotsTask(
+            pullScreenshotsTask = pullScreenshotsTask,
+            compareScreenshotsTask = compareScreenshotsTask
+        )
+
         project.registerRecordAndCompareScreenshotsTask(
             recordPreviewsTask = recordPreviewsTask,
             pullScreenshotsTask = pullScreenshotsTask,
