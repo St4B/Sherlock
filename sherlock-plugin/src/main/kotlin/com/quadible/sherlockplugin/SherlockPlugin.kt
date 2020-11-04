@@ -14,5 +14,6 @@ class SherlockPlugin : Plugin<Project> {
             checkFFMPEGTask = checkFFMPEGTask
         )
         project.registerRecordPreviewsTask(extension = extension)
+        project.registerPullScreenshotsTask(extension = extension)
     }
 }
