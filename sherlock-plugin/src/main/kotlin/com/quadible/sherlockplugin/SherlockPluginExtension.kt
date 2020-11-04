@@ -4,8 +4,6 @@ import org.gradle.api.Project
 
 open class SherlockPluginExtension {
 
-    var moduleName: String = ""
-
     var applicationId: String = ""
 }
 

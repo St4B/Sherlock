@@ -15,5 +15,6 @@ class SherlockPlugin : Plugin<Project> {
         )
         project.registerRecordPreviewsTask(extension = extension)
         project.registerPullScreenshotsTask(extension = extension)
+        project.registerCompareScreenshotsTask()
     }
 }

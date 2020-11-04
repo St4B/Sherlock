@@ -2,10 +2,9 @@ package com.quadible.sherlockplugin
 
 object PullScreenshotsScript {
 
-    //https://youtrack.jetbrains.com/issue/KT-2425
-    private val `$` = "$"
+    const val name: String = "pullScreenshots.sh"
 
-    fun getCode(applicationId: String) = """
+    fun getCode(applicationId: String): String = """
         # Add a directory in which we are going to pull the
         pullPath=${'$'}(pwd)"/pulled-screenshots"
         mkdir $`$`pullPath

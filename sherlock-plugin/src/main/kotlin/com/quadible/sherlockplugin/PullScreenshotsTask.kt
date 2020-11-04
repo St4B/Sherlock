@@ -5,8 +5,6 @@ import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskProvider
 import java.io.ByteArrayOutputStream
-import java.io.File
-import java.nio.file.Files
 
 open class PullScreenshotsTask : Exec() {
 
@@ -32,17 +30,13 @@ open class PullScreenshotsTask : Exec() {
 
         standardOutput = stdout
 
-        val script = File("${project.buildDir}/sherlock-plugin", "pullScreenshots.sh")
-        script.setExecutable(true)
-        if (!script.exists()) {
-            Files.createDirectories(script.parentFile.toPath())
-            script.createNewFile()
-            script.writeText(
-                text = PullScreenshotsScript.getCode(applicationId = applicationId)
-            )
-        }
+        generate(
+            code = PullScreenshotsScript.getCode(applicationId = applicationId),
+            buildDir = project.buildDir,
+            name = PullScreenshotsScript.name
+        )
 
-        commandLine = listOf("sh", "./build/sherlock-plugin/pullScreenshots.sh")
+        commandLine = listOf("sh", getCommand(name = PullScreenshotsScript.name))
         super.exec()
     }
 }
