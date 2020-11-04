@@ -3,7 +3,6 @@ package com.quadible.sherlockplugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.TaskProvider
 import java.io.ByteArrayOutputStream
 
 open class CompareScreenshotsTask : Exec() {
@@ -32,11 +31,15 @@ open class CompareScreenshotsTask : Exec() {
     }
 }
 
-fun Project.registerCompareScreenshotsTask(): TaskProvider<CompareScreenshotsTask> = tasks.register(
+fun Project.registerCompareScreenshotsTask(
+    installFFMPEGTask: InstallFFMPEGTask
+): CompareScreenshotsTask = tasks.create(
     CompareScreenshotsTask.TASK_NAME_COMPARE,
     CompareScreenshotsTask::class.java
 ) { compareTask ->
     compareTask.doLast {
         println("Compare Screenshots result: ${compareTask.result}")
     }
+}.apply {
+    dependsOn(installFFMPEGTask)
 }

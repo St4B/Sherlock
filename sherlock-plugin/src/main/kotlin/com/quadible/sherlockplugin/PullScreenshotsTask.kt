@@ -3,7 +3,6 @@ package com.quadible.sherlockplugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.TaskProvider
 import java.io.ByteArrayOutputStream
 
 open class PullScreenshotsTask : Exec() {
@@ -43,7 +42,7 @@ open class PullScreenshotsTask : Exec() {
 
 fun Project.registerPullScreenshotsTask(
     extension: SherlockPluginExtension
-): TaskProvider<PullScreenshotsTask> = tasks.register(
+): PullScreenshotsTask = tasks.create(
     PullScreenshotsTask.TASK_NAME_PULL,
     PullScreenshotsTask::class.java
 ) { pullTask ->

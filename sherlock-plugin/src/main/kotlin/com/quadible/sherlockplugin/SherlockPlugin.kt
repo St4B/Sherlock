@@ -9,12 +9,19 @@ class SherlockPlugin : Plugin<Project> {
         val extension = project.createSherlockPluginExtension()
         val getOSNameTask = project.registerGetOSNameTask()
         val checkFFMPEGTask = project.registerCheckFFMPEGTask()
-        project.registerInstallFFMPEGTask(
+        val installFFMPEGTask = project.registerInstallFFMPEGTask(
             getOSNameTask = getOSNameTask,
             checkFFMPEGTask = checkFFMPEGTask
         )
-        project.registerRecordPreviewsTask(extension = extension)
-        project.registerPullScreenshotsTask(extension = extension)
-        project.registerCompareScreenshotsTask()
+        val recordPreviewsTask = project.registerRecordPreviewsTask(extension = extension)
+        val pullScreenshotsTask = project.registerPullScreenshotsTask(extension = extension)
+        val compareScreenshotsTask =
+            project.registerCompareScreenshotsTask(installFFMPEGTask = installFFMPEGTask)
+
+        project.registerRecordAndCompareScreenshotsTask(
+            recordPreviewsTask = recordPreviewsTask,
+            pullScreenshotsTask = pullScreenshotsTask,
+            compareScreenshotsTask = compareScreenshotsTask
+        )
     }
 }

@@ -4,7 +4,6 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
-import org.gradle.api.tasks.TaskProvider
 import java.io.File
 
 open class RecordPreviewsTask : DefaultTask() {
@@ -44,7 +43,7 @@ open class RecordPreviewsTask : DefaultTask() {
 
 fun Project.registerRecordPreviewsTask(
     extension: SherlockPluginExtension
-): TaskProvider<RecordPreviewsTask> = tasks.register(
+): RecordPreviewsTask = tasks.create(
     RecordPreviewsTask.TASK_NAME_RECORD_PREVIEWS,
     RecordPreviewsTask::class.java
 ) { recordTask ->
