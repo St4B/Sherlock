@@ -1,4 +1,4 @@
-package com.theblueground.sherlock
+package com.quadible.sherlock
 
 import android.app.Activity
 

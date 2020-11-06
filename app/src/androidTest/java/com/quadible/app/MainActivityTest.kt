@@ -1,7 +1,7 @@
-package com.theblueground.app
+package com.quadible.app
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import com.theblueground.sherlock.ViewHierarchyRecorder
+import com.quadible.sherlock.ViewHierarchyRecorder
 import org.junit.Rule
 import org.junit.Test
 

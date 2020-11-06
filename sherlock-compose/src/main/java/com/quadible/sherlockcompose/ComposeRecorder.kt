@@ -3,14 +3,9 @@ package com.quadible.sherlockcompose
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import android.os.Debug
-import android.util.Log
-import androidx.compose.runtime.FrameManager
 import androidx.core.view.postDelayed
 import androidx.ui.tooling.preview.PreviewActivity
-import com.theblueground.sherlock.ViewHierarchyRecorder
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import com.quadible.sherlock.ViewHierarchyRecorder
 import java.lang.RuntimeException
 
 /**

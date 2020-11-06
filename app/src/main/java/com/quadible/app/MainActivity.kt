@@ -1,4 +1,4 @@
-package com.theblueground.app
+package com.quadible.app
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar

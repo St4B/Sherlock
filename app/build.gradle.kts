@@ -5,7 +5,7 @@ plugins {
     id("kotlin-android-extensions")
 }
 
-val appId = "com.theblueground.app"
+val appId = "com.quadible.app"
 
 android {
     compileSdkVersion(AndroidSDK.compileVersion)
