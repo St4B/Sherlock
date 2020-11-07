@@ -51,3 +51,44 @@ fun TestPreview() {
         Greeting("Android")
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun AnotherPreview() {
+    SherlockTheme {
+        Greeting("Android")
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AnotherPreview2() {
+    SherlockTheme {
+        Greeting("Android")
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AnotherPreview3() {
+    SherlockTheme {
+        Greeting("Android")
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AnotherPreview4() {
+    SherlockTheme {
+        Greeting("Android")
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AnotherPreview5() {
+    SherlockTheme {
+        Greeting("Android")
+    }
+}
+
