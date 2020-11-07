@@ -2,11 +2,13 @@ package com.quadible.sherlockplugin
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
+import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
+import java.io.ByteArrayOutputStream
 import java.io.File
 
-open class RecordPreviewsTask : DefaultTask() {
+open class RecordPreviewsTask : Exec() {
 
     companion object {
         internal const val TASK_NAME_RECORD_PREVIEWS = "recordPreviews"
@@ -16,28 +18,40 @@ open class RecordPreviewsTask : DefaultTask() {
     internal var applicationId = ""
 
     @get:Internal
-    internal val commands = mutableMapOf<String, List<String>>()
+    internal val result: String
+        get() = stdout.toString().trim()
 
-    @TaskAction
-    fun record() {
+    private val stdout = ByteArrayOutputStream()
+
+    override fun exec() {
         if (applicationId.isBlank()) {
             throw RuntimeException(
                 "Application id is missing. Not possible to execute RecordPreviewsTask"
             )
         }
 
-        File(
+        standardOutput = stdout
+
+
+        val code = File(
             "${project.buildDir}/generated/source/kaptKotlin/debug",
             "previews.txt"
-        ).forEachLine { composableName ->
-            val command = listOf(
-                "adb", "shell", "am", "start", "-n",
-                "$applicationId/androidx.ui.tooling.preview.PreviewActivity",
-                "-a", "android.intent.action.MAIN", "-c", "android.intent.category.LAUNCHER",
-                "--es composable $composableName"
+        ).useLines { composables ->
+            RecordPreviewsScript.getCode(
+                composables = composables.toList(),
+                applicationId = applicationId
             )
-            commands[composableName] = command
         }
+
+
+        generate(
+            code = code,
+            buildDir = project.buildDir,
+            name = RecordPreviewsScript.name
+        )
+
+        commandLine = listOf("sh", getCommand(name = RecordPreviewsScript.name))
+        super.exec()
     }
 }
 
@@ -51,14 +65,6 @@ fun Project.registerRecordPreviewsTask(
         recordTask.applicationId = extension.applicationId
     }
     recordTask.doLast {
-        recordTask.commands.forEach { (composableName, command) ->
-            println("Taking screenshot for composable $composableName")
-            project.exec { it.commandLine(command) }
-
-            // We need to pause between every record in order to let device
-            // render the composable. 200ms seem to work for now but in the
-            // future we will need to find a way to remove Thread.sleep()
-            Thread.sleep(200)
-        }
+        println("Pull Screenshots result: ${recordTask.result}")
     }
 }
