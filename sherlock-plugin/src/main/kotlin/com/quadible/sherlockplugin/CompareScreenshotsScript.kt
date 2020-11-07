@@ -50,6 +50,12 @@ object CompareScreenshotsScript {
             echo $`$`image1
             image2=$`$`pullPath/$`$`{file##*/}
             echo $`$`image2
+            
+            if [ ! -f "$`$`image1" ]; then
+              echo "$`$`{file##*/}: NEW"
+              cp $`$`image2 $`$`resultsPath/$`$`{file##*/}
+              continue
+            fi
 
             # Compare the two images
             result=${'$'}(ffmpeg -i $`$`image1 -i $`$`image2 $`$`compareGraph)
